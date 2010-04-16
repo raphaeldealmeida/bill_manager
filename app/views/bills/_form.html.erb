@@ -1,0 +1,27 @@
+<% form_for(bill) do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :amount %><br />
+    <%= f.text_field :amount %>
+  </p>
+  <p>
+    <%= f.label :due_date %><br />
+    <%= f.date_select :due_date %>
+  </p>
+  <p>
+    <%= f.label :category_id %><br />
+    <%= f.select(:category_id, Category.find(:all).collect {|c| [c.name, c.id]}, :prompt => 'Select') %>
+  </p>
+  <p>
+    <%= f.label :paid %><br />
+    <%= f.check_box :paid %>
+  </p>
+  <p>
+    <%= f.submit label %>
+  </p>
+<% end %>
+

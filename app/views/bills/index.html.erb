@@ -1,0 +1,51 @@
+<h1>Contas</h1>
+
+<div style="display:inline;">
+<%= link_to 'Todos', bills_path %> | <%= link_to 'Pendentes', :status => 'pendente' %> | <%= link_to 'Pagos', :status => 'pago' %> | <%= link_to 'Atrasados', :status => 'atrasado' %>
+</div>
+
+<div style="display:inline;margin-left:100px">
+<strong>Categorias:</strong>
+<% @categories.each do |category| %>
+<%= link_to category.name, :action => :index, :category_id => category.id %>
+<% end %>
+</div>
+
+<br /><br />
+
+<table>
+  <tr>
+    <th>Nome</th>
+	<th>Pago?</th>
+	<th>Vencido?</th>
+	<th>Valor</th>
+    <th>Vencimento</th>
+    <th>Categoria</th>
+	<th>&nbsp;</th>
+	<th>&nbsp;</th>
+	<th>&nbsp;</th>
+  </tr>
+
+<% @bills.each do |bill| %>
+  <tr>
+    <td><%=h bill.name %></td>
+	<td><%= 'S' if bill.paid %></td>
+	<td><%= 'S' if bill.due_date < Date.today %></td>
+	<td><%= number_to_currency(bill.amount) %></td>
+    <td><%= l(bill.due_date) %></td>
+    <td><%= bill.category.name if bill.category  %></td>
+    <td><%= link_to t('Show'), bill %></td>
+    <td><%= link_to t('Edit'), edit_bill_path(bill) %></td>
+    <td><%= link_to 'Destroy', bill, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate @bills %>
+
+
+<br />
+Total: <%= number_to_currency(@total) %>
+<br />
+
+<%= link_to 'New bill', new_bill_path %>

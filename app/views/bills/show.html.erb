@@ -1,0 +1,28 @@
+<p>
+  <b>Name:</b>
+  <%=h @bill.name %>
+</p>
+
+<p>
+  <b>Amount:</b>
+  <%=h number_to_currency(@bill.amount) %>
+</p>
+
+<p>
+  <b>Due date:</b>
+  <%=h @bill.due_date %>
+</p>
+
+<p>
+  <b>Category:</b>
+  <%=h @bill.category.name if @bill.category %>
+</p>
+
+<p>
+  <b>Paid:</b>
+  <%=h @bill.paid %>
+</p>
+
+
+<%= link_to 'Edit', edit_bill_path(@bill) %> |
+<%= link_to 'Back', bills_path %>
